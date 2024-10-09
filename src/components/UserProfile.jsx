@@ -2,10 +2,21 @@ import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../UserContext';
 import { db } from '../firebase';
 import { doc, getDoc } from 'firebase/firestore';
+import { auth } from '../firebase';
+import { signOut } from 'firebase/auth';
 
 const UserProfile = () => {
   const { user } = useContext(UserContext);
   const [userData, setUserData] = useState(null);
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      console.log('User signed out');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  }
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -39,8 +50,14 @@ const UserProfile = () => {
           <p>Email: {userData.email}</p>
         </div>
       ) : (
-        <div>Loading...</div>
+        <div>Loading...
+          
+          
+        </div>
       )}
+      <form onSubmit={handleLogout}>
+          <button type='submit'>Logout</button>
+          </form>
     </div>
   );
 };

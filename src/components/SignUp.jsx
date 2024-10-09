@@ -1,29 +1,36 @@
 import React, { useState } from 'react'
 import { auth , db } from '../firebase'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { collection, doc , setDoc } from 'firebase/firestore'
 
 const SignUp = () => {
 
     const [email , setEmail] = useState('')
     const [password , setPassword] = useState('')
     const [name , setName] = useState('')
+    const [error, setError] = useState('')
 
     const handleSignUp = async (e) => {
         e.preventDefault();
         try {
-            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-            await db.collection('users').doc(userCredential.user.uid).set({
-                name,
-                email
-        });
-        }
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const userDocRef = doc(collection(db, 'users'), userCredential.user.uid);
+            await setDoc(userDocRef, {
+              name,
+              email
+            });
+            console.log('User signed up and added to Firestore');
+          }
         catch(error) {
+            setError('Invalid email or password');
             console.log('error sign up: ', error);
+            
         }
     }
 
   return (
    <>
-
+    <h1>SIGN UP</h1>
     <form onSubmit={handleSignUp}>
         <input type='text'
         value={name}
@@ -42,6 +49,11 @@ const SignUp = () => {
 
         <button type='submit'>Sign Up</button>
     </form>
+    <div className='error'>
+    {error}
+    </div>
+    
+    <p>Already have an account? <a href='/SignIn'>Login here</a></p>
    
    </>
   )
