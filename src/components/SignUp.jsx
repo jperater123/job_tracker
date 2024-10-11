@@ -17,10 +17,12 @@ const SignUp = () => {
       try {
           const result = await signInWithPopup(auth, google);
           const user = result.user;
-  
-          setEmail(user.email)
+
+          const newemail = user.email
+          setEmail(newemail)
           setName(user.displayName)
 
+         
           console.log(user);
           const userDocRefGoogle = doc(collection(db, 'users'), user.uid);
           await setDoc(userDocRefGoogle, {
@@ -30,8 +32,7 @@ const SignUp = () => {
 
           console.log('User signed up and added to Firestore');
           setSuccess('User signed up successfully');
-          setName('')
-          setEmail('')
+         
        
       }
       catch(error) {
