@@ -1,8 +1,8 @@
 import { set } from 'firebase/database'
 import React, { useContext, useState } from 'react'
-import { auth } from '../firebase'
+import { auth, google } from '../firebase'
 import { UserContext } from '../UserContext'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 const SignIn = () => {
     
@@ -11,6 +11,18 @@ const SignIn = () => {
     const [password, setPassword] = useState('')
     const { setUser } = useContext(UserContext);
     const [error, setError] = useState('')
+
+    const handleGoogleSignIn = async() => {
+      try{
+        const userGoogleCreds = await signInWithPopup(auth, google);
+        setUser(userGoogleCreds.user)
+        console.log("success")
+        navigate('/profile')
+      }
+      catch(error) {
+        setError(error)
+      }
+    };
   
     const handleSignIn = async (e) => {
         e.preventDefault();
@@ -27,7 +39,17 @@ const SignIn = () => {
       };
   return (
     <>
-    <h1>SIGN IN</h1>
+    <div className='sign_in_container'>
+      <div className='logo'>
+        <img src='img/logo.png' alt='logo'/> Job tracker app
+      </div>
+      <div className='sign_in_left'>
+      <h1>Sign in <br/>
+      <span>Please login to continue to your account.</span></h1>
+      <div className='error'>
+        {error}
+        </div>
+      
     <form onSubmit={handleSignIn}>
         <input type='email'
         value={email}
@@ -48,12 +70,33 @@ const SignIn = () => {
         placeholder='Password'
         required
         />
-
+        <label>
+        <input type='checkbox'/> Keep me logged in
+        </label>
         <button type='submit'>Sign In</button>
-    </form>
-    <div className='error'>
-    {error}
+
+        <div className='or'>
+          <span></span>
+          or
+          <span></span>
+        </div>
+
+        <div className='sign_in_google' onClick={handleGoogleSignIn}>
+          Sign in with Google <img src='/img/google.png' alt='google'/>
+        </div>
+        
+        <div className='reg'>
+        <span>Need an account?</span> <a href='/signup'>Create one</a>
+        </div>
+        </form>
+        
+      </div>
+
+      <div className='sign_in_right'>
+          <img src='/img/sign_in_bg.png' alt="bg"/>
+      </div>
     </div>
+    
     </>
   )
 }
