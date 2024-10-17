@@ -1,9 +1,10 @@
 import { set } from 'firebase/database'
 import React, { useContext, useState } from 'react'
-import { auth, google } from '../firebase'
+import { db, auth, google } from '../firebase'
 import { UserContext } from '../UserContext'
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
+import { collection, doc, setDoc } from 'firebase/firestore'
 const SignIn = () => {
     
     const navigate = useNavigate();
@@ -12,11 +13,29 @@ const SignIn = () => {
     const { setUser } = useContext(UserContext);
     const [error, setError] = useState('')
 
+    // for google auth
+    const [name, setName] = useState('')
+
     const handleGoogleSignIn = async() => {
       try{
         const userGoogleCreds = await signInWithPopup(auth, google);
         setUser(userGoogleCreds.user)
-        console.log("success")
+
+        const newuser = userGoogleCreds.user;
+        console.log(newuser)
+       
+        const newname = (newuser.displayName).toString();
+
+        const newemail = (newuser.email).toString();
+        
+
+        const userDocRefGoogle = doc(collection(db, 'users'), newuser.uid)
+        await setDoc(userDocRefGoogle, {
+          name: newname,
+          email: newemail
+        })
+        console.log("success"+ email)
+
         navigate('/profile')
       }
       catch(error) {

@@ -1,0 +1,47 @@
+.dashboard_container {
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 300;
+    font-style: normal;
+
+    height: 100vh;
+  
+    padding: 40px 70px;
+    background: #FAFBFF;
+}
+.dashboard_container .header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dashboard_container .header input {
+    width: 216px;
+    height: 38px;
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+}
+.dashboard_container .summary {
+    display: flex;
+    padding: 30px;
+}
+
+.dashboard_container .summary span {
+    font-size: 14px;
+    color: #ACACAC;
+}
+.dashboard_container .summary h2 {
+    font-size: 32px;
+    color: #333333;
+    
+}
+.dashboard_container .summary img {
+    width: 83px;
+    height: 83px;
+    object-fit: cover;
+}
+
+.dashboard_container .summary .total_application {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}

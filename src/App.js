@@ -4,6 +4,7 @@ import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import UserProfile from './components/UserProfile';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Dashboard from './components/Dashboard';
 
 
 const App = () => {
@@ -17,7 +18,7 @@ const App = () => {
               {/* Public Routes */}
               <Route path="/SignIn" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
-              <Route path="/"  element={user ? <UserProfile /> : <SignIn />}/>
+              <Route path="/"  element={<Dashboard />}/>
 
               {/* Protected Routes */}
               <Route

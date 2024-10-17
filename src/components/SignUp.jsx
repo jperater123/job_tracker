@@ -3,20 +3,28 @@ import { auth , db, google } from '../firebase'
 import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import { collection, doc , setDoc } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
+import { UserContext } from '../UserContext'
+import { useContext
+
+ } from 'react'
 
 const SignUp = () => {
-
+    const { setUser } = useContext(UserContext);
     const [email , setEmail] = useState('')
     const [password , setPassword] = useState('')
     const [name , setName] = useState('')
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
 
+    const navigate = useNavigate();
+
     const handleGoogleSignUp =async () => {
       
       try {
           const result = await signInWithPopup(auth, google);
           const user = result.user;
+          // Update the user state - Logged in
+          setUser(user);
 
           const newemail = user.email
           setEmail(newemail)
@@ -32,6 +40,7 @@ const SignUp = () => {
 
           console.log('User signed up and added to Firestore');
           setSuccess('User signed up successfully');
+          navigate("/profile")
          
        
       }
