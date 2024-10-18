@@ -41,7 +41,7 @@ const Dashboard = () => {
     <div className='dashboard_container'>
         <div className='header'>
             {console.log(jobs)}
-            <h1>Hello User 👋🏼,</h1>
+            <h1>Hello, {user.displayName} 👋🏼.</h1>
             <input type='search' 
             placeholder='Search'/>
         </div>
