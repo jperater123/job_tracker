@@ -129,7 +129,7 @@ tr:hover {
 
 }
 
-.rejected {
+.Rejected {
     color: #DF0404;
     border: 1px solid #DF0404;
     background: #FFC5C5;
@@ -138,7 +138,7 @@ tr:hover {
     margin: 10px 0;
 }
 
-.hired {
+.Hired {
     color: #00B087;
     border: 1px solid #00B087;
     background: #16C09861;
@@ -147,7 +147,16 @@ tr:hover {
     margin: 10px 0;
 }
 
-.pending {
+.Scheduled {
+    color: #6495ED;
+    border: 1px solid #6495ED;
+    background: #F0FFFF;
+    border-radius: 20px;
+    display: block;
+    margin: 10px 0;
+}
+
+.Pending {
     color: #FFC000;
     border: 1px solid #FFC000;
     background: #FFFFF0;

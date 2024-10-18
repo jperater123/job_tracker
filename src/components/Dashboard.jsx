@@ -1,10 +1,46 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import '../dashboard.css'
+import { UserContext } from '../UserContext'
+import { collection, getDocs, query, where } from 'firebase/firestore'
+import { db } from '../firebase'
 
 const Dashboard = () => {
+
+    const { user } = useContext(UserContext)
+    const [jobs, setJobs] = useState([]);
+
+    useEffect(() => {
+        
+        try {
+           
+            const fetchJobs = async () => {
+                console.log("fetching job datas ...")
+                if(user) {      
+                    const q = query(collection(db, 'jobs_list'), where('userId', '==', user.uid));
+                    const querySnapshot = await getDocs(q);
+
+                    const fetchData = querySnapshot.docs.map(doc => ({id : doc.id, ...doc.data() }));
+                    setJobs(fetchData);
+                    console.log("asd"+fetchData);
+                }
+                else {
+                    console.log("User not logged")
+                }
+               
+            }
+            fetchJobs();
+           
+        }
+        catch(error) {
+            console.log("error: "+ error)
+        }
+       
+    }, [user])
+
   return (
     <div className='dashboard_container'>
         <div className='header'>
+            {console.log(jobs)}
             <h1>Hello User 👋🏼,</h1>
             <input type='search' 
             placeholder='Search'/>
@@ -68,70 +104,19 @@ const Dashboard = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>FDCI</td>
-                        <td>test@gmail.com</td>
-                        <td>123456789</td>
-                        <td>IT PARK</td>
-                        <td>ME</td>
-                        <td className='rejected'>Rejected</td>
-                    </tr>
-                    <tr>
-                        <td>FDCIadasdasdasdasdasdasdasdasd</td>
-                        <td>test@gmail.com</td>
-                        <td>123456789</td>
-                        <td>IT PARK</td>
-                        <td>ME</td>
-                        <td className='hired'>Hired</td>
-                    </tr>
-                    <tr>
-                        <td>FDCIssssssssssssssssssss</td>
-                        <td>test@gmail.commmmmmmmmmmmmm</td>
-                        <td>123456789</td>
-                        <td>IT PARKddddddadadsadasdasdasd</td>
-                        <td>MEdasdasdasdasdasdasd</td>
-                        <td className='pending'>PENDING</td>
-                    </tr>
-                    <tr>
-                        <td>FDCI</td>
-                        <td>test@gmail.com</td>
-                        <td>123456789</td>
-                        <td>IT PARK</td>
-                        <td>ME</td>
-                        <td className='pending'>PENDING</td>
-                    </tr>
-                    <tr>
-                        <td>FDCI</td>
-                        <td>test@gmail.com</td>
-                        <td>123456789</td>
-                        <td>IT PARK</td>
-                        <td>ME</td>
-                        <td className='pending'>PENDING</td>
-                    </tr>
-                    <tr>
-                        <td>FDCI</td>
-                        <td>test@gmail.com</td>
-                        <td>123456789</td>
-                        <td>IT PARK</td>
-                        <td>ME</td>
-                        <td className='pending'>PENDING</td>
-                    </tr>
-                    <tr>
-                        <td>FDCI</td>
-                        <td>test@gmail.com</td>
-                        <td>123456789</td>
-                        <td>IT PARK</td>
-                        <td>ME</td>
-                        <td className='pending'>PENDING</td>
-                    </tr>
-                    <tr>
-                        <td>FDCI</td>
-                        <td>test@gmail.com</td>
-                        <td>123456789</td>
-                        <td>IT PARK</td>
-                        <td>ME</td>
-                        <td className='rejected'>Rejected</td>
-                    </tr>
+                    {/* set datas */}
+                    {
+                        jobs.map(job => (
+                            <tr>
+                            <td>{job.CompanyName}</td>
+                            <td>{job.email}</td>
+                            <td>{job.number}</td>
+                            <td>{job.location}</td>
+                            <td>{job.contact_person}</td>
+                            <td className={`${job.status}`}>{job.status}</td>
+                            </tr>
+                        ))
+                        }
                 </tbody>
             </table>
             <div className='t-footer'>

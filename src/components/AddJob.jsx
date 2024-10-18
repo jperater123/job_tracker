@@ -19,6 +19,11 @@ const AddJob = () => {
 
     const handleAddJob = async (e) => {
         e.preventDefault()
+
+        if(!status){
+            console.log("EMPTY STATUS")
+            return;
+        }
         const newdate = new Date()
         if(user) {
             const userId = user.uid
@@ -109,6 +114,7 @@ const AddJob = () => {
     <select id="status" value={status} onChange={(e) => {
         setStatus(e.target.value)
     }}>
+        <option value="">Choose an option</option>
         <option value="Pending">Pending</option>
         <option value="Hired">Hired</option>
         <option value="Rejected">Rejected</option>
