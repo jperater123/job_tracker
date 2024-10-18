@@ -21,6 +21,8 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       if (user) {
+        console.log("thus user"+user)
+        console.log(JSON.stringify(user, null, 2));
         try {
           const userDocRef = doc(db, 'users', user.uid);
           const userDoc = await getDoc(userDocRef);

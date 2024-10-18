@@ -19,15 +19,15 @@ const SignIn = () => {
     const handleGoogleSignIn = async() => {
       try{
         const userGoogleCreds = await signInWithPopup(auth, google);
-        setUser(userGoogleCreds.user)
+       
 
         const newuser = userGoogleCreds.user;
+        setUser(newuser)
         console.log(newuser)
        
         const newname = (newuser.displayName).toString();
 
         const newemail = (newuser.email).toString();
-        
 
         const userDocRefGoogle = doc(collection(db, 'users'), newuser.uid)
         await setDoc(userDocRefGoogle, {

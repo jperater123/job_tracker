@@ -4,9 +4,7 @@ import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import { collection, doc , setDoc } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../UserContext'
-import { useContext
-
- } from 'react'
+import { useContext } from 'react'
 
 const SignUp = () => {
     const { setUser } = useContext(UserContext);

@@ -5,6 +5,7 @@ import SignIn from './components/SignIn';
 import UserProfile from './components/UserProfile';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
+import AddJob from './components/AddJob';
 
 
 const App = () => {
@@ -24,6 +25,11 @@ const App = () => {
               <Route
                 path="/profile"
                 element={user ? <UserProfile /> : <SignIn />}
+              />
+
+              <Route
+                path="/addjobs"
+                element={user ? <AddJob /> : <SignIn />}
               />
               {/* Catch-all route for undefined paths */}
               
