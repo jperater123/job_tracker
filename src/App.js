@@ -19,13 +19,15 @@ const App = () => {
               {/* Public Routes */}
               <Route path="/SignIn" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
-              <Route path="/"  element={<Dashboard />}/>
+              
 
               {/* Protected Routes */}
               <Route
                 path="/profile"
                 element={user ? <UserProfile /> : <SignIn />}
               />
+
+            <Route path="/"  element={ user ?<Dashboard /> : <SignIn />}/>
 
               <Route
                 path="/addjobs"
