@@ -18,7 +18,7 @@ const SideMenu = () => {
               <ul>
              
                 <li>Upgrade to PRO to access all Features!</li>
-                <li><i class="fa-solid fa-right-from-bracket" key={'logout'}></i> Logout</li>
+                <li><i className="fa-solid fa-right-from-bracket" key={'logout'}></i> Logout</li>
               </ul>
               </div>
              

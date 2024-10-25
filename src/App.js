@@ -17,8 +17,6 @@ const App = () => {
         {({ user }) => (
           <Router>
             <div className='app'>
-
-
                 {user ? <SideMenu/> : ""}
             <Routes>
               {/* Public Routes */}
