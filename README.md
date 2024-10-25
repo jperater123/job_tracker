@@ -68,3 +68,14 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Firebase Setup
+
+To run this project, you'll need to set up some environment variables in a `.env` file. Follow the steps below:
+
+### 1. Create a `.env` file
+
+In the root directory of the project (the same level as the `src` folder), create a `.env` file. You can do this by copying the example file provided in the repository:
+
+```bash
+cp .env.example
