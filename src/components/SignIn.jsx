@@ -6,6 +6,19 @@ import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import { collection, doc, setDoc } from 'firebase/firestore'
 const SignIn = () => {
+  const apiKey = process.env.REACT_APP_apiKey;
+  const authDomain = process.env.REACT_APP_authDomain;
+  const projectId = process.env.REACT_APP_projectId;
+  const storageBucket = process.env.REACT_APP_storageBucket;
+  const messagingSenderId = process.env.REACT_APP_messagingSenderId;
+  const appId = process.env.REACT_APP_appId;
+  
+    console.log("api"+apiKey)
+    console.log("authDomain"+authDomain)
+    console.log("projectId"+projectId)
+    console.log("storageBucket"+storageBucket)
+    console.log("messagingSenderId"+messagingSenderId)
+    console.log("appId"+appId)
     
     const navigate = useNavigate();
     const [email, setEmail] = useState('')
