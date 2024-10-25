@@ -6,6 +6,7 @@ import UserProfile from './components/UserProfile';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import AddJob from './components/AddJob';
+import SideMenu from './components/SideMenu';
 
 
 const App = () => {
@@ -15,10 +16,14 @@ const App = () => {
       <UserContext.Consumer>
         {({ user }) => (
           <Router>
+            <div className='app'>
+
+
+                {user ? <SideMenu/> : ""}
             <Routes>
               {/* Public Routes */}
-              <Route path="/SignIn" element={<SignIn />} />
-              <Route path="/signup" element={<SignUp />} />
+              <Route path="/SignIn" element={user ? <Dashboard /> : <SignIn />} />
+              <Route path="/signup" element={user ? <Dashboard /> : <SignUp />} />
               
 
               {/* Protected Routes */}
@@ -27,8 +32,8 @@ const App = () => {
                 element={user ? <UserProfile /> : <SignIn />}
               />
 
-            <Route path="/"  element={ user ?<Dashboard /> : <SignIn />}/>
-
+              <Route path="/"  element={ user ?<Dashboard /> : <SignIn />}/>
+              <Route path="/dashboard"  element={ user ?<Dashboard /> : <SignIn />}/>
               <Route
                 path="/addjobs"
                 element={user ? <AddJob /> : <SignIn />}
@@ -36,6 +41,7 @@ const App = () => {
               {/* Catch-all route for undefined paths */}
               
             </Routes>
+            </div>
           </Router>
         )}
       </UserContext.Consumer>

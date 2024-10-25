@@ -3,8 +3,8 @@
     font-weight: 300;
     font-style: normal;
 
-    height: 100vh;
-  
+    height: 100%;
+    width: 100%;
     padding: 40px 70px;
     background: #FAFBFF;
 }
