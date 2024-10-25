@@ -44,6 +44,7 @@ const SignUp = () => {
       }
       catch(error) {
           console.log("err google"+error)
+          
       }
     }
 
