@@ -49,7 +49,7 @@ const SignIn = () => {
         })
         console.log("success"+ email)
 
-        navigate('/profile')
+        navigate('/dashboard')
       }
       catch(error) {
         const apiKey = process.env.REACT_APP_apiKey;

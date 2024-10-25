@@ -38,7 +38,7 @@ const SignUp = () => {
 
           console.log('User signed up and added to Firestore');
           setSuccess('User signed up successfully');
-          navigate("/profile")
+          navigate("/dashboard")
          
        
       }
