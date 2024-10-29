@@ -3,11 +3,16 @@ import '../dashboard.css'
 import { UserContext } from '../UserContext'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import { db } from '../firebase'
+import { useNavigate } from 'react-router-dom'
 
 const Dashboard = () => {
 
     const { user } = useContext(UserContext)
     const [jobs, setJobs] = useState([]);
+    const temp_lastname = String(user.displayName).split(" ")
+    const displayName = temp_lastname[temp_lastname.length -1]
+    const navigate = useNavigate()
+    
 
     useEffect(() => {
         
@@ -41,7 +46,7 @@ const Dashboard = () => {
     <div className='dashboard_container'>
         <div className='header'>
             {console.log(jobs)}
-            <h1>Hello, {user.displayName} 👋🏼.</h1>
+            <h1>Hello, {displayName} 👋🏼.</h1>
             <input type='search' 
             placeholder='Search'/>
         </div>
@@ -51,14 +56,14 @@ const Dashboard = () => {
                 <img src='img/group.png' alt='group'/>
                 <div className=''>
                     <span>Total Application</span>
-                    <h2>5,423</h2>
+                    <h2>{jobs.length}</h2>
                 </div>
             </div>
 
             <div className='total_application'>
                 <img src='img/single.png' alt='group'/>
                 <div className=''>
-                    <span>Total Application</span>
+                    <span>Scheduled Interview</span>
                     <h2>5,423</h2>
                 </div>
             </div>
@@ -66,7 +71,7 @@ const Dashboard = () => {
             <div className='total_application'>
                 <img src='img/monitor1.png' alt='group'/>
                 <div className=''>
-                    <span>Total Application</span>
+                    <span>Pending Application</span>
                     <h2>5,423</h2>
                 </div>
             </div>
@@ -106,6 +111,7 @@ const Dashboard = () => {
                 <tbody>
                     {/* set datas */}
                     {
+                        jobs ?
                         jobs.map(job => (
                             <tr>
                             <td>{job.CompanyName}</td>
@@ -115,7 +121,16 @@ const Dashboard = () => {
                             <td>{job.contact_person}</td>
                             <td className={`${job.status}`}>{job.status}</td>
                             </tr>
-                        ))
+                        )) 
+                        :
+                        <tr>
+                            <td > <i className="fa-solid fa-plus"></i> </td>
+                            <td>Click here to add job listing</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
                         }
                 </tbody>
             </table>
