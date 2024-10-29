@@ -12,6 +12,11 @@ const Dashboard = () => {
     const temp_lastname = String(user.displayName).split(" ")
     const displayName = temp_lastname[temp_lastname.length -1]
     const navigate = useNavigate()
+
+    //when table is empty - nav to addjobs
+    const handleAdd = () => {
+        navigate("/addjobs");
+    }
     
 
     useEffect(() => {
@@ -111,7 +116,7 @@ const Dashboard = () => {
                 <tbody>
                     {/* set datas */}
                     {
-                        jobs ?
+                        jobs.length > 0 ?
                         jobs.map(job => (
                             <tr>
                             <td>{job.CompanyName}</td>
@@ -123,7 +128,7 @@ const Dashboard = () => {
                             </tr>
                         )) 
                         :
-                        <tr>
+                        <tr onClick={handleAdd}>
                             <td > <i className="fa-solid fa-plus"></i> </td>
                             <td>Click here to add job listing</td>
                             <td></td>

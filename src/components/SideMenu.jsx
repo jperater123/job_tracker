@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 const SideMenu = () => {
   return (
@@ -10,9 +11,17 @@ const SideMenu = () => {
 
               <div className='side-items'>
               <ul>
-                <li className='active' key={'dashboard'}><i className="fa-solid fa-chart-line"></i> Dashboard</li>
-                <li><i className="fa-solid fa-user" key={'profile'}></i> Profile</li>
-                <li><i className="fa-solid fa-plus" key={'addjobs'}></i> Add Jobs</li>
+                <NavLink to="/dashboard" exact activeClassName="active">
+                <li key={'dashboard'}><i className="fa-solid fa-chart-line"></i> Dashboard</li>
+                </NavLink>
+               <NavLink to="/profile" exact activeClassName="active">
+               <li><i className="fa-solid fa-user" key={'profile'}></i> Profile</li>
+               </NavLink>
+               <NavLink to="/addjobs" exact activeClassName="active">
+               <li><i className="fa-solid fa-plus" key={'addjobs'}></i> Add Jobs</li>
+               </NavLink>
+                
+                
               </ul>
 
               <ul>
