@@ -20,12 +20,6 @@ const firebaseConfig = {
     appId: appId
   };
 
-  console.log("api"+apiKey)
-  console.log("authDomain"+authDomain)
-  console.log("projectId"+projectId)
-  console.log("storageBucket"+storageBucket)
-  console.log("messagingSenderId"+messagingSenderId)
-  console.log("appId"+appId)
 
 
   const app = initializeApp(firebaseConfig);

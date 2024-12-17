@@ -3,59 +3,54 @@ import '../dashboard.css'
 import { UserContext } from '../UserContext'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import { db } from '../firebase'
+import Modal from '../modal/modal'
 import { useNavigate } from 'react-router-dom'
-
+import useFetchData
+ from '../hooks/useFetchData'
+ 
 const Dashboard = () => {
 
     const { user } = useContext(UserContext)
     const [jobs, setJobs] = useState([]);
+    const [dname, setDname] = useState('');
+    const [selectedJob, setSelectedJob] = useState(null);
+
     const temp_lastname = String(user.displayName).split(" ")
-    const displayName = temp_lastname[temp_lastname.length -1]
+    let displayName = temp_lastname[temp_lastname.length -1]
+
+    //modal
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const openModal = (job) => {
+        setSelectedJob(job);  // Set the clicked job
+        setIsModalOpen(true);  // Open the modal
+      };
+    
+      const closeModal = () => {
+        setIsModalOpen(false);  // Close the modal
+        setSelectedJob(null);    // Clear selected job (optional)
+      };
+
+      
     const navigate = useNavigate()
 
     //when table is empty - nav to addjobs
     const handleAdd = () => {
         navigate("/addjobs");
     }
-    
 
-    useEffect(() => {
-        
-        try {
-           
-            const fetchJobs = async () => {
-                console.log("fetching job datas ...")
-                if(user) {      
-                    const q = query(collection(db, 'jobs_list'), where('userId', '==', user.uid));
-                    const querySnapshot = await getDocs(q);
-
-                    const fetchData = querySnapshot.docs.map(doc => ({id : doc.id, ...doc.data() }));
-                    setJobs(fetchData);
-                    console.log("asd"+fetchData);
-                }
-                else {
-                    console.log("User not logged")
-                }
-               
-            }
-            fetchJobs();
-           
-        }
-        catch(error) {
-            console.log("error: "+ error)
-        }
-       
-    }, [user])
+    //custom hook
+    useFetchData(user, setDname, setJobs, displayName);
 
   return (
     <div className='dashboard_container'>
         <div className='header'>
             {console.log(jobs)}
-            <h1>Hello, {displayName} 👋🏼.</h1>
+            <h1>Hello, {dname} 👋🏼.</h1>
             <input type='search' 
             placeholder='Search'/>
         </div>
-
+        
+       
         <div className='summary'>
             <div className='total_application'>
                 <img src='img/group.png' alt='group'/>
@@ -114,17 +109,18 @@ const Dashboard = () => {
                     </tr>
                 </thead>
                 <tbody>
+                <Modal isOpen={isModalOpen} onClose={closeModal} jobs={selectedJob}/>
                     {/* set datas */}
                     {
                         jobs.length > 0 ?
                         jobs.map(job => (
-                            <tr>
-                            <td>{job.CompanyName}</td>
-                            <td>{job.email}</td>
-                            <td>{job.number}</td>
-                            <td>{job.location}</td>
-                            <td>{job.contact_person}</td>
-                            <td className={`${job.status}`}>{job.status}</td>
+                            <tr onClick={()=> openModal(job)}>
+                            <td key={job.id+1}>{job.CompanyName}</td>
+                            <td key={job.id+2}>{job.email}</td>
+                            <td key={job.id+3}>{job.number}</td>
+                            <td key={job.id+4}>{job.location}</td>
+                            <td key={job.id+5}>{job.contact_person}</td>
+                            <td key={job.id+6} className={`${job.status}`}>{job.status}</td>
                             </tr>
                         )) 
                         :

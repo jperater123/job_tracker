@@ -1,5 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import Logout from '../utilities/logout'
 
 const SideMenu = () => {
   return (
@@ -26,8 +27,10 @@ const SideMenu = () => {
 
               <ul>
              
-                <li>Upgrade to PRO to access all Features!</li>
-                <li><i className="fa-solid fa-right-from-bracket" key={'logout'}></i> Logout</li>
+                <a>Upgrade to PRO to access all Features!</a>
+                <a onClick={()=> {
+                  Logout()
+                }}><i className="fa-solid fa-right-from-bracket" key={'logout'} ></i> Logout</a>
               </ul>
               </div>
              

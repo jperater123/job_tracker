@@ -60,20 +60,18 @@ const AddJob = () => {
         else {
             console.log("ERROR: USER NOT LOGGED IN")
         }
-        
-    
-   
-       
+
         
     }
 
   return (
-    <div>
+    <div className='add'>
       <h1>
         ADD JOBS
       </h1>
 
-      <form onSubmit={handleAddJob}>
+      <form onSubmit={handleAddJob} class="addjobs">
+        <div className='addjobs-form'>
         <input type='text' placeholder='Company Name'
         value={companyName}
         onChange={(e) => {
@@ -127,7 +125,7 @@ const AddJob = () => {
             setNote(e.target.value)
         }}
         />  
-
+    </div>
     <button type='submit'>Add</button>
       </form>
     </div>

@@ -4,19 +4,11 @@ import { db } from '../firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
-
+import Logout from '../utilities/logout';
 const UserProfile = () => {
   const { user } = useContext(UserContext);
   const [userData, setUserData] = useState(null);
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      console.log('User signed out');
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
-  }
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -57,7 +49,7 @@ const UserProfile = () => {
           
         </div>
       )}
-      <form onSubmit={handleLogout}>
+      <form onSubmit={Logout}>
           <button type='submit'>Logout</button>
           </form>
     </div>
